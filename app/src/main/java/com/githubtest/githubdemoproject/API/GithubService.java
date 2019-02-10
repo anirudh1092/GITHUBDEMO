@@ -1,4 +1,4 @@
-package com.githubtest.githubdemoproject.API.Models;
+package com.githubtest.githubdemoproject.API;
 
 
 import com.githubtest.githubdemoproject.API.GitHubClient;
@@ -29,7 +29,7 @@ public class GithubService {
                 build();
 
     }
-
+    @Singleton
     @Provides
     public static GitHubClient provideGitHubInstance(){
         return provideRetfofitClient(base_URL).create(GitHubClient.class);

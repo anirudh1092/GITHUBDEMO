@@ -1,7 +1,5 @@
 package com.githubtest.githubdemoproject.Views;
 
-import android.databinding.DataBindingComponent;
-import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -14,21 +12,18 @@ import android.widget.ProgressBar;
 
 import com.githubtest.githubdemoproject.API.GitHubClient;
 import com.githubtest.githubdemoproject.API.Models.GitHubRepos;
-import com.githubtest.githubdemoproject.API.Models.GithubService;
+import com.githubtest.githubdemoproject.API.GithubService;
+import com.githubtest.githubdemoproject.API.Models.UserCommitDiffs;
+import com.githubtest.githubdemoproject.API.Models.UserCommits;
 import com.githubtest.githubdemoproject.R;
 
-
-import com.githubtest.githubdemoproject.databinding.RecyclerviewItemListBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Retrofit;
 import rx.Observable;
-import rx.Observer;
-import rx.Scheduler;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
@@ -42,8 +37,9 @@ public class MainActivity extends AppCompatActivity {
    @BindView(R.id.progress_circular)
     ProgressBar progressBar;
 
+   private final String TAG=MainActivity.class.getName();
 
-    private RecyclerViewAdapter adapter;
+    private ReposRecyclerViewAdapter adapter;
     List<String> data;
 
 
@@ -56,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         data=new ArrayList<>();
         loadData();
+        getCommits();
+        getDiffs();
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
@@ -94,11 +92,69 @@ public class MainActivity extends AppCompatActivity {
                        Log.d("temp", "onNext: "+strings.get(0));
                        for(String str:strings)
                            data.add(str);
-                       adapter=new RecyclerViewAdapter(getApplicationContext(),data);
+                       adapter=new ReposRecyclerViewAdapter(getApplicationContext(),data);
                        recyclerView.setAdapter(adapter);
 
                    }
                });
+
+    }
+
+
+    private void getCommits(){
+         final String user="PhilJay";
+         String repoName="MPAndroidChart";
+        final GitHubClient client =GithubService.provideGitHubInstance();
+        Observable<List<UserCommits>> observable=client.getRepoCommits(user,repoName)
+                                                .subscribeOn(Schedulers.io()).
+                                                 observeOn(AndroidSchedulers.mainThread());
+
+        observable.subscribe(new Subscriber<List<UserCommits>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d(TAG, "onError: "+e.getMessage());
+            }
+
+            @Override
+            public void onNext(List<UserCommits> userCommits) {
+                Log.d(TAG, "onNext:SHA "+userCommits.get(0).getSha());
+                Log.d(TAG, "onNext:Login "+userCommits.get(0).getAuthor().getLogin());
+            }
+        });
+
+
+    }
+
+    private void getDiffs(){
+        String user="PhilJay";
+        String repo="MPAndroidChart";
+        String sha="aea2ff3417e30d6d4b1ce7e777cbd8bc83e1c95d";
+        final GitHubClient client =GithubService.provideGitHubInstance();
+        Observable<List<UserCommitDiffs>> observable= client.getDiffs(user,repo,sha).
+                                                        subscribeOn(Schedulers.io()).
+                                                        observeOn(AndroidSchedulers.mainThread());
+
+        observable.subscribe(new Subscriber<List<UserCommitDiffs>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e(TAG, "onError:Error "+e.getMessage() );
+            }
+
+            @Override
+            public void onNext(List<UserCommitDiffs> userCommitDiffs) {
+                Log.d(TAG, "onNext: "+userCommitDiffs.get(0).getFiles());
+            }
+        });
 
     }
 }

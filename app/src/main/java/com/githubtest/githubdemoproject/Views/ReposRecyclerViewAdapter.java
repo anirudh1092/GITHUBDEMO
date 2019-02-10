@@ -1,8 +1,6 @@
 package com.githubtest.githubdemoproject.Views;
 
-import android.app.Activity;
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.githubtest.githubdemoproject.R;
-import com.githubtest.githubdemoproject.databinding.RecyclerviewItemListBinding;
 
 import java.util.List;
 
@@ -21,12 +18,12 @@ import butterknife.BindView;
 
 import static android.content.ContentValues.TAG;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class ReposRecyclerViewAdapter extends RecyclerView.Adapter<ReposRecyclerViewAdapter.ViewHolder> {
 
     List<String> dataList;
     Context context;
 
-    public RecyclerViewAdapter(Context context,List<String> dataList) {
+    public ReposRecyclerViewAdapter(Context context, List<String> dataList) {
         this.dataList = dataList;
         this.context=context;
     }
