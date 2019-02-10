@@ -1,9 +1,12 @@
 package com.githubtest.githubdemoproject.API.Models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class UserCommitFiles {
 
-
+    @SerializedName("filename")
     private String filename;
+    @SerializedName("patch")
     private String patch;
 
     public UserCommitFiles(String filename, String patch) {

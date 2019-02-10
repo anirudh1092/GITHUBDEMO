@@ -152,8 +152,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onNext(List<UserCommitDiffs> userCommitDiffs) {
-                Log.d(TAG, "onNext: "+userCommitDiffs.get(0).getFiles());
+
             }
+
+
+
         });
 
     }
