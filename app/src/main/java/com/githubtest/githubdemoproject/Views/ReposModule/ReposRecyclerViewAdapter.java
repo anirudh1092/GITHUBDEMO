@@ -1,4 +1,4 @@
-package com.githubtest.githubdemoproject.Views;
+package com.githubtest.githubdemoproject.Views.ReposModule;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,9 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.githubtest.githubdemoproject.R;
+import com.githubtest.githubdemoproject.Views.CommitsModule.CommitsActivity;
 
 import java.util.List;
 
@@ -65,7 +65,7 @@ public class ReposRecyclerViewAdapter extends RecyclerView.Adapter<ReposRecycler
                 @Override
                 public void onClick(View v) {
                     int position=getLayoutPosition();
-                   Intent intent= new Intent(context,PullRequestActivity.class);
+                   Intent intent= new Intent(context, CommitsActivity.class);
                    intent.putExtra("SelectedRepo",dataList.get(position));
                     context.startActivity(intent);
                 }

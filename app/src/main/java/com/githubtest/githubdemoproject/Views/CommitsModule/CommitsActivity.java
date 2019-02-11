@@ -1,12 +1,12 @@
 
-package com.githubtest.githubdemoproject.Views;
+package com.githubtest.githubdemoproject.Views.CommitsModule;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.githubtest.githubdemoproject.R;
 
-public class PullRequestActivity extends AppCompatActivity {
+public class CommitsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

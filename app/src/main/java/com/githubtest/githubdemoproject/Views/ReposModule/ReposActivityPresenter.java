@@ -41,8 +41,6 @@ public class ReposActivityPresenter implements ReposActivityMVP.Presenter {
                 }
             }
         });
-
-
     }
 
     @Override
