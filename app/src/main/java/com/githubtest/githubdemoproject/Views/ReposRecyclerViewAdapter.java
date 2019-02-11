@@ -1,6 +1,7 @@
 package com.githubtest.githubdemoproject.Views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -55,7 +56,7 @@ public class ReposRecyclerViewAdapter extends RecyclerView.Adapter<ReposRecycler
         @BindView(R.id.textView_githubRepos)
         TextView textView;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull final View itemView) {
             super(itemView);
             textView=itemView.findViewById(R.id.textView_githubRepos);
           //  Activity activity=(Activity)context;
@@ -63,7 +64,10 @@ public class ReposRecyclerViewAdapter extends RecyclerView.Adapter<ReposRecycler
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context,"Hello click",Toast.LENGTH_SHORT).show();
+                    int position=getLayoutPosition();
+                   Intent intent= new Intent(context,PullRequestActivity.class);
+                   intent.putExtra("SelectedRepo",dataList.get(position));
+                    context.startActivity(intent);
                 }
             });
         }

@@ -1,4 +1,4 @@
-package com.githubtest.githubdemoproject.Views;
+package com.githubtest.githubdemoproject.Views.ReposModule;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +16,7 @@ import com.githubtest.githubdemoproject.API.GithubService;
 import com.githubtest.githubdemoproject.API.Models.UserCommitDiffs;
 import com.githubtest.githubdemoproject.API.Models.UserCommits;
 import com.githubtest.githubdemoproject.R;
+import com.githubtest.githubdemoproject.Views.ReposRecyclerViewAdapter;
 
 
 import java.util.ArrayList;
